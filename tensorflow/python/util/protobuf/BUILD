@@ -1,5 +1,6 @@
 # Tensorflow protobuf utility package
 
+# Placeholder: load py_proto_library
 load("//tensorflow:strict.default.bzl", "py_strict_library")
 load("//tensorflow:tensorflow.default.bzl", "get_compatible_with_portable", "tf_py_strict_test")
 load("//tensorflow/core/platform:build_config.bzl", "tf_proto_library")  # @unused
@@ -20,7 +21,6 @@ visibility = [
     "//third_party/py/tf_agents:__subpackages__",  # For benchmarks.
     "//third_party/py/tf_slim:__subpackages__",
     "//third_party/py/tensorflow_docs:__subpackages__",
-    "//third_party/py/keras:__subpackages__",
 ]
 
 package(
@@ -46,7 +46,7 @@ tf_py_strict_test(
     deps = [
         ":compare_test_proto_py",
         ":protobuf",
-        "//tensorflow/python:platform_test",
+        "//tensorflow/python/platform:test",
         "@six_archive//:six",
     ],
 )

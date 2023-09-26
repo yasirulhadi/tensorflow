@@ -49,6 +49,7 @@ py_strict_library(
         "//tensorflow/python/framework:dtypes",
         "//tensorflow/python/framework:errors",
         "//tensorflow/python/framework:ops",
+        "//tensorflow/python/framework:tensor",
         "//tensorflow/python/grappler:tf_optimizer",
         "//tensorflow/python/ops:array_ops",
         "//tensorflow/python/ops:resource_variable_ops_gen",
@@ -68,6 +69,7 @@ py_strict_library(
         "//tensorflow/python/util:nest",
         "//tensorflow/python/util:tf_export",
         "//third_party/py/numpy",
+        "@pypi_packaging//:pkg",
         "@six_archive//:six",
     ],
 )
@@ -115,6 +117,8 @@ cuda_py_strict_test(
     python_version = "PY3",
     tags = [
         "no_cuda_on_cpu_tap",
+        # TODO(b/297490791): Reenable after TensorRT regression has been fixed
+        "no_oss",
         "no_pip",
         "nomac",
     ],
@@ -170,6 +174,7 @@ cuda_py_strict_test(
         "no_rocm",
         "no_windows",
         "nomac",
+        "notap",  #TODO(b/290051231)
         "requires-net:external",
     ],
     xla_enable_strict_auto_jit = False,
@@ -178,8 +183,6 @@ cuda_py_strict_test(
         ":trt_convert_py",
         "//tensorflow/compiler/tf2tensorrt:_pywrap_py_utils",
         "//tensorflow/core:protos_all_py",
-        "//tensorflow/python:metrics",
-        "//tensorflow/python:nn",
         "//tensorflow/python/client:session",
         "//tensorflow/python/data/ops:dataset_ops",
         "//tensorflow/python/estimator",
@@ -196,6 +199,8 @@ cuda_py_strict_test(
         "//tensorflow/python/ops:array_ops_gen",
         "//tensorflow/python/ops:init_ops",
         "//tensorflow/python/ops:math_ops",
+        "//tensorflow/python/ops:metrics",
+        "//tensorflow/python/ops:nn",
         "//tensorflow/python/ops:variable_scope",
         "//tensorflow/python/ops/losses",
         "//tensorflow/python/platform:client_testlib",

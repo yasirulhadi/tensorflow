@@ -21,6 +21,10 @@ package(
 tf_python_pybind_extension(
     name = "_pywrap_file_io",
     srcs = ["file_io_wrapper.cc"],
+    enable_stub_generation = True,
+    pytype_srcs = [
+        "_pywrap_file_io.pyi",
+    ],
     deps = [
         "//tensorflow/core:framework_headers_lib",
         "//tensorflow/core:protos_all_cc",
@@ -47,7 +51,7 @@ py_strict_library(
     deps = [
         ":_pywrap_file_io",
         ":_pywrap_record_io",
-        "//tensorflow/python:errors",
+        "//tensorflow/python/framework:errors",
         "//tensorflow/python/util:compat",
         "//tensorflow/python/util:deprecation",
         "//tensorflow/python/util:tf_export",
@@ -58,9 +62,16 @@ py_strict_library(
 tf_python_pybind_extension(
     name = "_pywrap_record_io",
     srcs = ["record_io_wrapper.cc"],
+    enable_stub_generation = True,
+    pytype_srcs = [
+        "_pywrap_record_io.pyi",
+    ],
     deps = [
-        "//tensorflow/core:framework_headers_lib",
+        "//tensorflow/core:core_stringpiece",
+        "//tensorflow/core:lib",
         "//tensorflow/core:lib_headers_for_pybind",
+        "//tensorflow/core:lib_proto_parsing",
+        "//tensorflow/core/platform:errors",
         "//tensorflow/core/platform:types",
         "//tensorflow/python/lib/core:pybind11_absl",
         "//tensorflow/python/lib/core:pybind11_status",
@@ -80,7 +91,7 @@ tf_py_strict_test(
     ],
     deps = [
         ":lib",
-        "//tensorflow/python:errors",
+        "//tensorflow/python/framework:errors",
         "//tensorflow/python/platform:client_testlib",
         "//tensorflow/python/platform:gfile",
         "@absl_py//absl/testing:parameterized",
@@ -101,7 +112,7 @@ tf_py_strict_test(
     ],
     deps = [
         ":lib",
-        "//tensorflow/python:errors",
+        "//tensorflow/python/framework:errors",
         "//tensorflow/python/platform:client_testlib",
         "//tensorflow/python/util:compat",
     ],
